@@ -1,9 +1,12 @@
 function menuApp() {
   return {
     menu: [
-      { id: 1, name: 'Pizza', price: 12.99 },
-      { id: 2, name: 'Burger', price: 8.99 },
-      { id: 3, name: 'Pasta', price: 10.99 },
+      { id: 1, name: 'Pizza', price: 12.99, image: 'https://via.placeholder.com/150?text=Pizza' },
+      { id: 2, name: 'Burger', price: 8.99, image: 'https://via.placeholder.com/150?text=Burger' },
+      { id: 3, name: 'Pasta', price: 10.99, image: 'https://via.placeholder.com/150?text=Pasta' },
+      { id: 4, name: 'Fries', price: 4.99, image: 'https://via.placeholder.com/150?text=Fries' },
+      { id: 5, name: 'Salad', price: 6.99, image: 'https://via.placeholder.com/150?text=Salad' },
+      { id: 6, name: 'Soda', price: 2.99, image: 'https://via.placeholder.com/150?text=Soda' },
     ],
     cart: [],
     get subtotal() {
@@ -23,13 +26,18 @@ function menuApp() {
         this.cart.push({ ...item, quantity: 1 });
       }
     },
-    updateCart(index) {
-      if (this.cart[index].quantity <= 0) {
-        this.cart.splice(index, 1);
+    decreaseQuantity(item) {
+      const existingItem = this.cart.find(cartItem => cartItem.id === item.id);
+      if (existingItem) {
+        existingItem.quantity--;
+        if (existingItem.quantity <= 0) {
+          this.cart = this.cart.filter(cartItem => cartItem.id !== item.id);
+        }
       }
     },
-    removeFromCart(index) {
-      this.cart.splice(index, 1);
+    getItemQuantity(item) {
+      const existingItem = this.cart.find(cartItem => cartItem.id === item.id);
+      return existingItem ? existingItem.quantity : 0;
     },
   };
 }
