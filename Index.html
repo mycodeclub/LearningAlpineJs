@@ -26,10 +26,19 @@
       object-fit: cover;
       border-radius: 8px;
     }
+
+    .scrollable-div {
+          
+            height: 3em;           /* Height for 2 rows (e.g., 1 row = 1.5em, 2 rows = 3em) */
+            overflow-y: auto;      /* Enables vertical scrollbar */
+            padding: 1em;
+            border: 1px solid #d13b3b;
+            box-sizing: border-box;
+        }
   </style>
 </head>
 <body>
-  <div class="container my-5" x-data="menuApp()">
+  <div class="container my-5" x-data="menuApp()" x-init="fetchMenu()">
     <h1>Welcome to Our Restaurant</h1>
     <p>Explore our delicious menu and add items to your cart!</p>
   
@@ -38,14 +47,15 @@
         <template x-for="item in menu" :key="item.id">
           <div class="col-md-4 mb-4">
             <div class="card menu-item">
-              <img :src="item.image" alt="Product Image">
+              <img :src="item.foodItemImgUrl" alt="Product Image">
               <div class="card-body text-center">
                 <h5 class="card-title" x-text="item.name"></h5>
-                <p class="card-text">Price: $<span x-text="item.price.toFixed(2)"></span></p>
+                <h6 class="card-title scrollable-div" x-text="item.description"></h6>
+                <p class="card-text">Price: $<span x-text="item.pricing[0].cost.toFixed(2)"></span></p>
                 <div class="d-flex justify-content-center align-items-center">
-                  <button class="btn btn-sm btn-danger me-2" @click="decreaseQuantity(item)">-</button>
+                  <button class="btn btn-sm btn-danger me-2" x-on:click="decreaseQuantity(item)">-</button>
                   <span class="mx-2" x-text="getItemQuantity(item)"></span>
-                  <button class="btn btn-sm btn-success ms-2" @click="addToCart(item)">+</button>
+                  <button class="btn btn-sm btn-success ms-2" x-on:click="addToCart(item)">+</button>
                 </div>
               </div>
             </div>
