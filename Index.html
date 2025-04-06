@@ -21,10 +21,11 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .menu-item img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
+      width: 100%; /* Ensure the image spans the full width of the container */
+      height: 20vh; /* Use viewport height for responsiveness */
+      object-fit: cover; /* Maintain aspect ratio while filling the container */
+      border-radius: 1rem; /* Use rem for scalable curved edges */
+      background-color: #f8f9fa; /* Optional: Add a background color for better visibility */
     }
 
     .scrollable-div {
