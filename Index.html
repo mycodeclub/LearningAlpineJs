@@ -6,37 +6,8 @@
   <title>Restaurant Menu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
-  <script src="menuApp.js"> </script>
-  <style>
-    .floating-cart {
-      position: fixed;
-      top: 20px;
-      right: 20px; /* Move to the right side */
-      width: 300px;
-      z-index: 1000;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .menu-item img {
-      width: 100%; /* Ensure the image spans the full width of the container */
-      height: 20vh; /* Use viewport height for responsiveness */
-      object-fit: cover; /* Maintain aspect ratio while filling the container */
-      border-radius: 1rem; /* Use rem for scalable curved edges */
-      background-color: #f8f9fa; /* Optional: Add a background color for better visibility */
-    }
-
-    .scrollable-div {
-          
-            height: 3em;           /* Height for 2 rows (e.g., 1 row = 1.5em, 2 rows = 3em) */
-            overflow-y: auto;      /* Enables vertical scrollbar */
-            padding: 1em;
-            /* border: 1px solid #d13b3b; */
-            box-sizing: border-box;
-        }
-  </style>
+  <link href="styles.css" rel="stylesheet">
+  <script src="menuApp.js"></script>
 </head>
 <body>
   <div class="container my-5" x-data="menuApp()" x-init="fetchMenu()">
