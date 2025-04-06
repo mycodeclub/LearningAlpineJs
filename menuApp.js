@@ -4,7 +4,7 @@ function menuApp() {
     cart: [],
     baseUrl: 'https://localhost:7028/', // Base URL for the application
     async fetchMenu() {
-      try { 
+      try {
         const response = await fetch(`${this.baseUrl}api/FoodItems`);
         if (!response.ok) {
           throw new Error('Failed to fetch menu data');
@@ -12,7 +12,8 @@ function menuApp() {
         const data = await response.json();
         this.menu = data.map(item => ({
           ...item,
-          foodItemImgUrl: `${this.baseUrl}${item.foodItemImgUrl}` // Prepend base URL to image path
+          foodItemImgUrl: `${this.baseUrl}${item.foodItemImgUrl}`, // Prepend base URL to image path
+          selectedPricing: item.pricing[0] // Default to the first pricing option
         }));
         console.log(this.menu); // Log the menu data to the console
       } catch (error) {
@@ -20,7 +21,7 @@ function menuApp() {
       }
     },
     get subtotal() {
-      return this.cart.reduce((sum, item) => sum + item.quantity * item.pricing[0].cost, 0);
+      return this.cart.reduce((sum, item) => sum + item.quantity * item.selectedPricing.cost, 0);
     },
     get discount() {
       return this.subtotal * 0.1; // 10% discount
@@ -29,7 +30,7 @@ function menuApp() {
       return this.subtotal - this.discount;
     },
     addToCart(item) {
-      const existingItem = this.cart.find(cartItem => cartItem.id === item.id);
+      const existingItem = this.cart.find(cartItem => cartItem.id === item.id && cartItem.selectedPricing.id === item.selectedPricing.id);
       if (existingItem) {
         existingItem.quantity++;
       } else {
@@ -37,16 +38,16 @@ function menuApp() {
       }
     },
     decreaseQuantity(item) {
-      const existingItem = this.cart.find(cartItem => cartItem.id === item.id);
+      const existingItem = this.cart.find(cartItem => cartItem.id === item.id && cartItem.selectedPricing.id === item.selectedPricing.id);
       if (existingItem) {
         existingItem.quantity--;
         if (existingItem.quantity <= 0) {
-          this.cart = this.cart.filter(cartItem => cartItem.id !== item.id);
+          this.cart = this.cart.filter(cartItem => !(cartItem.id === item.id && cartItem.selectedPricing.id === item.selectedPricing.id));
         }
       }
     },
     getItemQuantity(item) {
-      const existingItem = this.cart.find(cartItem => cartItem.id === item.id);
+      const existingItem = this.cart.find(cartItem => cartItem.id === item.id && cartItem.selectedPricing.id === item.selectedPricing.id);
       return existingItem ? existingItem.quantity : 0;
     },
   };
