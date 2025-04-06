@@ -53,23 +53,15 @@
                 <h6 class="card-title scrollable-div" x-text="item.description"></h6>
                 <div>
                   <template x-for="pricingOption in item.pricing" :key="pricingOption.id">
-                    <div class="form-check">
-                      <input 
-                        class="form-check-input" 
-                        type="radio" 
-                        :name="`pricing-${item.id}`" 
-                        :value="pricingOption.id" 
-                        x-model="item.selectedPricing.id" 
-                        x-on:change="item.selectedPricing = pricingOption"
-                      >
-                      <label class="form-check-label" x-text="`${pricingOption.quantityDesciption} - $${pricingOption.cost.toFixed(2)}`"></label>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <span x-text="`${pricingOption.quantityDesciption} - $${pricingOption.cost.toFixed(2)}`"></span>
+                      <div class="d-flex align-items-center">
+                        <button class="btn btn-sm btn-danger me-2" x-on:click="decreaseQuantity(item, pricingOption)">-</button>
+                        <span class="mx-2" x-text="getItemQuantity(item, pricingOption)"></span>
+                        <button class="btn btn-sm btn-success ms-2" x-on:click="addToCart(item, pricingOption)">+</button>
+                      </div>
                     </div>
                   </template>
-                </div>
-                <div class="d-flex justify-content-center align-items-center mt-3">
-                  <button class="btn btn-sm btn-danger me-2" x-on:click="decreaseQuantity(item)">-</button>
-                  <span class="mx-2" x-text="getItemQuantity(item)"></span>
-                  <button class="btn btn-sm btn-success ms-2" x-on:click="addToCart(item)">+</button>
                 </div>
               </div>
             </div>
@@ -102,11 +94,8 @@
             <p>Subtotal: $<span x-text="subtotal.toFixed(2)"></span></p>
             <p>Discount: $<span x-text="discount.toFixed(2)"></span></p>
             <p><strong>Grand Total: $<span x-text="grandTotal.toFixed(2)"></span></strong></p>
-          </div></div>
-
-</div>
- 
-
+          </div></div> 
+</div> 
   </div>
 </body>
 </html>
