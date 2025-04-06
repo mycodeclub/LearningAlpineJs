@@ -4,7 +4,7 @@ function menuApp() {
     cart: [],
     baseUrl: 'https://localhost:7028/', // Base URL for the application
     async fetchMenu() {
-      try {
+      try { 
         const response = await fetch(`${this.baseUrl}api/FoodItems`);
         if (!response.ok) {
           throw new Error('Failed to fetch menu data');
@@ -20,7 +20,7 @@ function menuApp() {
       }
     },
     get subtotal() {
-      return this.cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+      return this.cart.reduce((sum, item) => sum + item.quantity * item.pricing[0].cost, 0);
     },
     get discount() {
       return this.subtotal * 0.1; // 10% discount

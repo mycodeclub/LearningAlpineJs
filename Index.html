@@ -32,7 +32,7 @@
             height: 3em;           /* Height for 2 rows (e.g., 1 row = 1.5em, 2 rows = 3em) */
             overflow-y: auto;      /* Enables vertical scrollbar */
             padding: 1em;
-            border: 1px solid #d13b3b;
+            /* border: 1px solid #d13b3b; */
             box-sizing: border-box;
         }
   </style>
@@ -79,7 +79,7 @@
                     <tr>
                       <td x-text="cartItem.name"></td>
                       <td x-text="cartItem.quantity"></td>
-                      <td>$<span x-text="(cartItem.quantity * cartItem.price).toFixed(2)"></span></td>
+                      <td>$<span x-text="(cartItem.quantity * cartItem.pricing[0].cost).toFixed(2)"></span></td>
                     </tr>
                   </template>
                 </tbody>
