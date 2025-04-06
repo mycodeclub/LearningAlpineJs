@@ -81,11 +81,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <template x-for="cartItem in cart" :key="cartItem.id">
+                  <template x-for="cartItem in cart" :key="`${cartItem.id}-${cartItem.pricingOption.id}`">
                     <tr>
-                      <td x-text="cartItem.name"></td>
+                      <td>
+                        <span x-text="cartItem.name"></span>
+                        <br>
+                        <small x-text="cartItem.pricingOption.quantityDesciption"></small>
+                      </td>
                       <td x-text="cartItem.quantity"></td>
-                      <td>$<span x-text="(cartItem.quantity * cartItem.pricing[0].cost).toFixed(2)"></span></td>
+                      <td>$<span x-text="(cartItem.quantity * cartItem.pricingOption.cost).toFixed(2)"></span></td>
                     </tr>
                   </template>
                 </tbody>
